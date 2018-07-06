@@ -64,8 +64,15 @@ if shareStatus then
 			trigger_action "{\"BTTPredefinedActionType\":47}" -- move to other monitor
 			trigger_action "{\"BTTPredefinedActionType\":175}" -- resize to right 2/3rd
 		end tell
-		tell application "System Events" to keystroke "w" using {command down, shift down}
 	end tell
+	tell application "System Events"
+		tell application process theApp
+			perform action "AXRaise" of (first window whose name contains "Meeting")
+			set frontmost to true
+			tell application "System Events" to keystroke "w" using {command down, shift down}
+		end tell
+	end tell
+	
 	return "ended sharing"
 else
 	-- return "not sharing"
@@ -90,6 +97,15 @@ else
 	
 	tell application "System Events" to key code 76 -- return
 	delay 1.5
+	
+	tell application "System Events"
+		tell application process theApp
+			set bar to (first window whose name does not contain " ")
+			set position of bar to external_top
+			set cameras to (second window whose name does not contain " ")
+			set position of cameras to external_top_lower
+		end tell
+	end tell
 	
 	tell application "System Events"
 		tell application process theApp
