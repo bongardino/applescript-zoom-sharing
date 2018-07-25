@@ -1,6 +1,6 @@
 set theApp to "zoom.us"
-set external_top to {1290, -1000} -- top left -- rename these, set proper coordinates.  maybe get from existing windows?
-set external_top_lower to {1200, -900}
+set external_top_left to {1290, -1000} -- top left -- rename these, set proper coordinates.  maybe get from existing windows?
+set external_top_left_lower to {582, -998}
 
 if application theApp is not running then
 	return "app isn't running"
@@ -69,6 +69,7 @@ if shareStatus then
 		tell application process theApp
 			perform action "AXRaise" of (first window whose name contains "Meeting")
 			set frontmost to true
+			delay 30
 			tell application "System Events" to keystroke "w" using {command down, shift down}
 		end tell
 	end tell
@@ -101,18 +102,18 @@ else
 	tell application "System Events"
 		tell application process theApp
 			set bar to (first window whose name does not contain " ")
-			set position of bar to external_top
+			set position of bar to external_top_left_lower
 			set cameras to (second window whose name does not contain " ")
-			set position of cameras to external_top_lower
+			set position of cameras to external_top_left_lower
 		end tell
 	end tell
 	
 	tell application "System Events"
 		tell application process theApp
-			set bar to (first window whose name does not contain " ")
-			set position of bar to external_top
-			set cameras to (second window whose name does not contain " ")
-			set position of cameras to external_top_lower
+			set bar to (second window whose name does not contain " ")
+			set position of bar to external_top_left_lower
+			set cameras to (first window whose name does not contain " ")
+			set position of cameras to external_top_left_lower
 		end tell
 	end tell
 	
