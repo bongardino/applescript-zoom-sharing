@@ -65,11 +65,11 @@ if shareStatus then
 			trigger_action "{\"BTTPredefinedActionType\":175}" -- resize to right 2/3rd
 		end tell
 	end tell
+	delay 30
 	tell application "System Events"
 		tell application process theApp
 			perform action "AXRaise" of (first window whose name contains "Meeting")
 			set frontmost to true
-			delay 30
 			tell application "System Events" to keystroke "w" using {command down, shift down}
 		end tell
 	end tell
